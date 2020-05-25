@@ -39,7 +39,8 @@ public class Fires{
     }
 
     public static boolean has(int x, int y){
-        if(!Structs.inBounds(x, y, world.width(), world.height()) || !map.containsKey(Point2.pack(x, y))){
+    	boolean boundary = !Structs.inBounds(x, y, world.width(), world.height()) || !map.containsKey(Point2.pack(x, y))
+        if(boundary){
             return false;
         }
         Firec fire = map.get(Point2.pack(x, y));

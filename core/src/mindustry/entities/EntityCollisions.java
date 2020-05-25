@@ -192,8 +192,8 @@ public class EntityCollisions{
 
         float entryTime = Math.max(xEntry, yEntry);
         float exitTime = Math.min(xExit, yExit);
-
-        if(entryTime > exitTime || xExit < 0.0f || yExit < 0.0f || xEntry > 1.0f || yEntry > 1.0f){
+        boolean boundary = entryTime > exitTime || xExit < 0.0f || yExit < 0.0f || xEntry > 1.0f || yEntry > 1.0f
+        if(boundary){
             return false;
         }else{
             float dx = x1 + w1 / 2f + px * entryTime;
