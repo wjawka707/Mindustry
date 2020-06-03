@@ -18,6 +18,7 @@ import static mindustry.Vars.*;
 
 @SuppressWarnings("unchecked")
 public class Net{
+	private static Net net = null;
     private boolean server;
     private boolean active;
     private boolean clientLoaded;
@@ -32,8 +33,16 @@ public class Net{
     private final LZ4FastDecompressor decompressor = LZ4Factory.fastestInstance().fastDecompressor();
     private final LZ4Compressor compressor = LZ4Factory.fastestInstance().fastCompressor();
 
-    public Net(NetProvider provider){
-        this.provider = provider;
+    private Net(NetProvider provider){
+        
+    }
+    
+    public static Net getNet() {
+    	if(net = null){
+    		this.provider = provider;
+    		net = new net();
+    	}
+    	return net;
     }
 
     /** Display a network error. Call on the graphics thread. */
