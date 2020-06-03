@@ -38,6 +38,8 @@ import static mindustry.Vars.*;
 
 /** Handles schematics.*/
 public class Schematics implements Loadable{
+	private static Schematics schematics = null;
+	
     public static final String base64Header = "bXNjaAB";
 
     private static final byte[] header = {'m', 's', 'c', 'h'};
@@ -55,27 +57,35 @@ public class Schematics implements Loadable{
     private Texture errorTexture;
     private long lastClearTime;
 
-    public Schematics(){
-        Events.on(DisposeEvent.class, e -> {
-            previews.each((schem, m) -> m.dispose());
-            previews.clear();
-            shadowBuffer.dispose();
-            if(errorTexture != null){
-                errorTexture.dispose();
-            }
-        });
+    private Schematics(){
+        
+    }
+    
+    public static Schematics getSchematics() {
+    	if (schematics == null) {
+    		Events.on(DisposeEvent.class, e -> {
+                previews.each((schem, m) -> m.dispose());
+                previews.clear();
+                shadowBuffer.dispose();
+                if(errorTexture != null){
+                    errorTexture.dispose();
+                }
+            });
 
-        Events.on(ContentReloadEvent.class, event -> {
-            previews.each((schem, m) -> m.dispose());
-            previews.clear();
-            load();
-        });
+            Events.on(ContentReloadEvent.class, event -> {
+                previews.each((schem, m) -> m.dispose());
+                previews.clear();
+                load();
+            });
 
-        Events.on(ClientLoadEvent.class, event -> {
-            Pixmap pixmap = Core.atlas.getPixmap("error").crop();
-            errorTexture = new Texture(pixmap);
-            pixmap.dispose();
-        });
+            Events.on(ClientLoadEvent.class, event -> {
+                Pixmap pixmap = Core.atlas.getPixmap("error").crop();
+                errorTexture = new Texture(pixmap);
+                pixmap.dispose();
+            });
+            schematics = new Schematics();
+    	}
+    	return schematics;
     }
 
     @Override

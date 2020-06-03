@@ -57,7 +57,7 @@ public abstract class ClientLauncher extends ApplicationCore implements Platform
         atlas = TextureAtlas.blankAtlas();
         Vars.net = Net.getNet(platform.getNet());
         mods = new Mods();
-        schematics = new Schematics();
+        schematics = Schematics.getSchematics();
 
         Fonts.loadSystemCursors();
 
