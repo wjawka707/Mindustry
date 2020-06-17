@@ -30,7 +30,20 @@ public class IOTests{
         buffer.position(0);
         assertEquals(TypeIO.readString(buffer), "这个服务器可以用自己的语言说话");
     }
-
+    
+    /*
+     * Purpose : writing korean
+     * input : 확인 확인 확인 확인 확인 확인
+     * Expected : return True;
+     */
+    @Test
+    void writekorean(){
+        ByteBuffer buffer = ByteBuffer.allocate(500);
+        TypeIO.writeString(buffer, "확인 확인 확인 확인 확인 확인");
+        buffer.position(0);
+        assertEquals(TypeIO.readString(buffer), "확인 확인 확인 확인 확인 확인");
+    }
+    
     @Test
     void writeNull(){
         ByteBuffer buffer = ByteBuffer.allocate(500);
