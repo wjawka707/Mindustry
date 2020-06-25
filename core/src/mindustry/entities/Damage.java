@@ -84,7 +84,8 @@ public class Damage{
         tr.trns(angle, length);
         Intc2 collider = (cx, cy) -> {
             Tilec tile = world.ent(cx, cy);
-            if(tile != null && !collidedBlocks.contains(tile.pos()) && tile.team() != team && tile.collide(hitter)){
+            boolean isTileVaild = tile != null && !collidedBlocks.contains(tile.pos()) && tile.team() != team && tile.collide(hitter);
+            if(isTileVaild){
                 tile.collision(hitter);
                 collidedBlocks.add(tile.pos());
                 hitter.type().hit(hitter, tile.x(), tile.y());
@@ -261,7 +262,8 @@ public class Damage{
         for(int dx = -trad; dx <= trad; dx++){
             for(int dy = -trad; dy <= trad; dy++){
                 Tile tile = world.tile(Math.round(x / tilesize) + dx, Math.round(y / tilesize) + dy);
-                if(tile != null && tile.entity != null && (team == null ||team.isEnemy(tile.team())) && Mathf.dst(dx, dy) <= trad){
+                boolean isTile&TeamVaild = tile != null && tile.entity != null && (team == null ||team.isEnemy(tile.team())) && Mathf.dst(dx, dy) <= trad
+                if(isTile&TeamVaild){
                     tile.entity.damage(damage);
                 }
             }
